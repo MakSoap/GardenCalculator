@@ -1,6 +1,6 @@
 package ru.maksoap.core.world
 
-data class Position(var x: Int, var y: Int) {
+data class Position(var x: Int, var y: Int) : Comparable<Position> {
 
     fun up(): Position          = Position(x, y + 1)
     fun upLeft(): Position      = Position(x - 1, y + 1)
@@ -20,6 +20,9 @@ data class Position(var x: Int, var y: Int) {
         x = pos.x
         y = pos.y
     }
+
+    override fun compareTo(other: Position): Int =
+        Comparator.comparing(Position::x).thenComparing(Position::y).compare(this, other)
 
     fun copy() = Position(x, y)
 }
